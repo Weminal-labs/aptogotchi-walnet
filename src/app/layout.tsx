@@ -1,7 +1,9 @@
+"use client";
+
 import { WalletProvider } from "@/context/WalletProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { GeoTargetly } from "@/utils/GeoTargetly";
 import "nes.css/css/nes.min.css";
 import "./globals.css";
@@ -18,6 +20,17 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-web-app.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <html lang="en">
       <head>
