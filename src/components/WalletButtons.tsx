@@ -3,9 +3,9 @@
 import {
   useWallet,
   WalletReadyState,
-  Wallet,
+  Wallet as WalletType,
   isRedirectable,
-  WalletName,
+  WalletName, AptosStandardSupportedWallet
 } from "@aptos-labs/wallet-adapter-react";
 import { cn } from "@/utils/styling";
 
@@ -38,12 +38,12 @@ export const WalletButtons = () => {
   return <WalletView wallet={wallets[0]} />;
 };
 
-const WalletView = ({ wallet }: { wallet: Wallet }) => {
+const WalletView = ({ wallet }: { wallet: WalletType | AptosStandardSupportedWallet<string> }) => {
   const { connect } = useWallet();
   const isWalletReady =
     wallet.readyState === WalletReadyState.Installed ||
     wallet.readyState === WalletReadyState.Loadable;
-  const mobileSupport = wallet.deeplinkProvider;
+    const mobileSupport = 'deeplinkProvider' in wallet && wallet.deeplinkProvider;
 
   const onWalletConnectRequest = async (walletName: WalletName) => {
     try {
