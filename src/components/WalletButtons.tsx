@@ -34,7 +34,7 @@ export const WalletButtons = () => {
       </div>
     );
   }
-
+  // @ts-ignore
   return <WalletView wallet={wallets[0]} />;
 };
 
