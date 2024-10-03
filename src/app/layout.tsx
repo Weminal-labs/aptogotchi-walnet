@@ -1,13 +1,10 @@
-"use client";
-
-import { WalletProvider } from "@/context/WalletProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren } from "react";
 import { GeoTargetly } from "@/utils/GeoTargetly";
 import "nes.css/css/nes.min.css";
 import "./globals.css";
-import { WrongNetworkAlert } from "@/components/WrongNetworkAlert";
+import ClientLayout from "./ClientLayout";
 
 const kongtext = localFont({
   src: "./../../public/kongtext.ttf",
@@ -20,17 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-web-app.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <html lang="en">
       <head>
@@ -40,10 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         />
       </head>
       <body className={kongtext.className}>
-        <WalletProvider>
-          <WrongNetworkAlert />
-          {children}
-        </WalletProvider>
+        <ClientLayout>{children}</ClientLayout>
         <GeoTargetly />
       </body>
     </html>

@@ -87,7 +87,12 @@ export function Mint() {
         data: {
           function: `${ABI.address}::aptogotchi::create_aptogotchi`,
           typeArguments: [],
-          functionArguments: [],
+          functionArguments: [
+            "examples", // default name
+            1, // default body
+            1, // default ear
+            1, // default face
+          ],
         },
       });
       await aptosClient()
